@@ -11,21 +11,21 @@
 
 _name()
 {
-	read  -p "Please, inform the scritp's name: "  script_name
+	read  -p "Inform the scritp's name: "  script_name
 	echo $script_name
 }
 
 
 _author()
 {
-	read -p "Please, inform the scritp's author: "  script_author
+	read -p "Inform the scritp's author: "  script_author
 	echo $script_author
 }
 
 
 _author_email()
 {
-	read -p "Please, inform the author's e-mail: "  author_email
+	read -p "Inform the author's e-mail: "  author_email
 	echo $author_email
 }
 
@@ -37,14 +37,14 @@ _date()
 
 _descr()
 {
-	read -p "Please, inform the scritp's short description: "  script_descr
+	read -p "Inform the scritp's short description: "  script_descr
 	echo $script_descr
 }
 
 
 _usage()
 {
-	read -p "Please, add the script's short usage: " script_usage
+	read -p "Add the script's short usage: " script_usage
 	echo $script_usage
 }
 
@@ -58,7 +58,7 @@ _header()
 	script_description=$(_descr)
 	script_usage=$(_usage)
 	
-	exec 1> $script_name
+	exec 1> >(tee -a $script_name)
 
 	echo "#!/bin/bash
 
@@ -74,7 +74,7 @@ _header()
 	$bar
 	$bar
 	    "
-	chmod +x ./$script_name	
+	find . -name "$script_name" -exec chmod +x {} \;	
 }
 
 
