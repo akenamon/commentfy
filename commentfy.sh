@@ -6,9 +6,8 @@
 	#	Author's email: vinicius.torino@protonmail.com                   #
 	#	Date of Creation: Mon Jul  6 12:45:07 -03 2020                   #
 	#	Short Description: Prints a simple script's header to stdout.    #
-	#	echo Usage: ./commentfy.sh                                       #
+	#	Usage: ./commentfy.sh                                            #
 	##########################################################################
-
 
 _name()
 {
@@ -32,7 +31,7 @@ _author_email()
 
 _date()
 {
-	date
+	date +'%D'
 }
 
 
@@ -51,25 +50,31 @@ _usage()
 
 _header()
 {
-	bar=##################################################################################
+	bar=_________________________________________________________________________________
 	script_name=$(_name)
 	script_author=$(_author)
 	author_email=$(_author_email)
 	script_date=$(_date)
 	script_description=$(_descr)
 	script_usage=$(_usage)
+	
+	exec 1> $script_name
 
-	echo "
+	echo "#!/bin/bash
+
 	$bar 
-	#	Script Name: $script_name
-	#	Script Author: $script_author
-	#	Author's email: $author_email
-	#	Date of Creation: $script_date
-	#	Short Description: $script_description
-	#	echo Usage: $script_usage
+	$bar
+
+		Script Name: $script_name
+		Script Author: $script_author
+		E-mail of the Author: $author_email
+		Date of Creation: $script_date
+		Short Description: $script_description
+		Usage: $script_usage
+	$bar
 	$bar
 	    "
-
+	chmod +x ./$script_name	
 }
 
 
